@@ -1,25 +1,89 @@
-## Fungsitama Nextjs
+# 🧾 Invoice Manager — Next.js + Neon + Shadcn UI
 
-### Folder Structure
+A lightweight full-stack invoice management app built with **Next.js (App Router)**, **Neon Serverless Postgres**, and **Shadcn UI**.
+It includes CRUD features, pagination, live search, and form validation with **React Hook Form + Zod**.
 
-- actions: folder untuk business logic
-- app: folder presentation view (equals dengan pages)
-- components: react component
-- drizzle: schema migration dan terdapat entity didalamnya (schema)
-- dtos: interface untuk request (setiap data dari form yang masuk ke dalam database)
-- entity: interface untuk membuat model (persis seperti di column yang ada di database)
-- public: folder asset
-- repositories: folder untuk menyimpan query server component
-- services: folder untuk menjembatani action dengan presentation view pages(app) gunakan hooks di sini karena services termasuk client component
-- lib: shared function yg dapat digunakan ulang
-- app/api: folder untuk meresponse json (API) bukan view page html
-- atoms: state management folder
-- datasource/internal: digunakan untuk menyimpan data yang sifatnya dapat dipakai kembali, contoh: generate column, generate form field
-- datasource/external: digunakan untuk menyimpan data yang resourcenya dari external
-- templates: digunakan untuk menyimpan file export (contoh: template pdf, body email) 
+---
 
-### How to use
+## 🚀 Tech Stack
 
-1. pnpm i
-2. set database_url di .env
-3. pnpm dev
+- **Frontend:** Next.js 15 (App Router) + React 19 + TypeScript
+- **UI Library:** Shadcn/UI (Radix primitives + Tailwind CSS)
+- **Form Validation:** React Hook Form + Zod
+- **Database:** Neon Serverless Postgres
+- **ORM/Query:** `@neondatabase/serverless` (SQL tagged template)
+- **Notifications:** `sonner` toast
+- **Icons:** Lucide React
+
+---
+
+## 🧑‍💻 Installation & Setup
+
+# 1. Install dependencies
+
+pnpm install
+
+# 2. Run the dev server
+
+pnpm dev
+
+# 3. App runs on:
+
+http://localhost:3000
+
+📦 Features
+✅ Invoice Management
+Create, edit, delete invoices
+Add multiple invoice items dynamically
+Auto-calculate totals and line items
+
+✅ Data Validation
+Real-time validation via Zod + React Hook Form
+Prevent invalid date ranges (due date < issue date)
+
+✅ List & Pagination
+Server-side pagination with LIMIT + OFFSET
+Adjustable “rows per page” via Shadcn <Select>
+Total pages, prev/next navigation, ellipsis pagination
+
+✅ Search
+Instant search by invoice number or client name
+Debounced to avoid excessive requests
+Fully integrated with pagination
+
+✅ Status Control
+Editable status: Draft, Sent, Paid, Overdue
+
+✅ Toast Notifications
+Non-blocking alerts for create/update/delete actions
+
+GET /api/invoices
+List invoices with pagination and optional search.
+| Param | Type | Default | Description |
+| --------- | ------ | ------- | --------------------------------------- |
+| `page` | number | 1 | Page number |
+| `perPage` | number | 10 | Items per page |
+| `q` | string | "" | Search by invoice number or client name |
+
+POST /api/invoices
+Create a new invoice.
+{
+"clientName": "PT Nusantara",
+"clientAddress": "Jl. Sudirman No. 10, Jakarta",
+"issueDate": "2025-10-01",
+"dueDate": "2025-10-08",
+"status": "Draft",
+"items": [
+{ "description": "Consulting Service", "quantity": 2, "unitPrice": 1500000 },
+{ "description": "UI Design", "quantity": 1, "unitPrice": 2500000 }
+]
+}
+
+GET /api/invoices/:id
+Retrieve invoice detail (with items).
+
+PUT /api/invoices/:id
+Update invoice data & items.
+
+DELETE /api/invoices/:id
+Delete invoice and all related items.

@@ -1,29 +1,19 @@
 'use client';
 
-import { Skeleton } from '@/components/ui/skeleton';
+import { InvoiceList } from '@/components/invoice-list';
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center p-4">
-      <WellcomeSkeleton />
-      <WorksapceSkeleton />
+    <div className="relative min-h-screen p-4">
+      <Workspace />
     </div>
   );
 }
 
-function WellcomeSkeleton() {
+function Workspace() {
   return (
-    <div className="grid justify-items-center space-y-2">
-      <Skeleton className="h-8 w-[150px]" />
-      <Skeleton className="h-4 w-[300px]" />
-    </div>
-  );
-}
-
-function WorksapceSkeleton() {
-  return (
-    <div>
-      <Skeleton className="h-4 w-[250px]" />
-    </div>
+    <main className="container mx-auto py-8 px-4">
+      <InvoiceList />
+    </main>
   );
 }

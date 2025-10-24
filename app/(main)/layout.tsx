@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import { ReactNode, Suspense } from 'react';
 
 type MainLayoutProps = {
@@ -7,5 +8,10 @@ type MainLayoutProps = {
 const LoadingPage = () => <div>Loading...</div>;
 
 export default function MainLayout({ children }: MainLayoutProps) {
-  return <Suspense fallback={<LoadingPage />}>{children}</Suspense>;
+  return (
+    <Suspense fallback={<LoadingPage />}>
+      {children}
+      <Toaster />
+    </Suspense>
+  );
 }
